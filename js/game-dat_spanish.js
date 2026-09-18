@@ -14,13 +14,17 @@ function controller() {
     let word;
     let hasSynonyms = false;
 
-    word = generateWord();
-    synonymCheck(word);
+    while (!hasSynonyms) {
+        word = generateWord();
+        results = synonymCheck(word);
 
-    // while (!hasSynonyms) {
-    //     word = generateWord();
-    //     results = synonymCheck(word);
-    // }
+        console.log(`[controller] results = ${results}`);
+
+        // end loop
+        if(results.length !== 0) {
+            hasSynonyms = true;
+        }
+    }
     
     
 }
@@ -63,7 +67,7 @@ function generateWord() {
 function synonymCheck(word) {
     // Declare local variables
     // DEV
-    word = 'chingar';
+    // word = 'chingar';
     let url = 'https://freedictionaryapi.com/api/v1/entries/es/' + word;
     let results;
     let synDataLocation01;
@@ -87,10 +91,9 @@ function synonymCheck(word) {
      *  -- entries[0].senses check
     */ 
     synDataLocation01 = JSON.parse(results);
-    synDataLocation01 = synDataLocation01.entries[0].senses;
+    if(synDataLocation01.entries[0]) {
+        synDataLocation01 = synDataLocation01.entries[0].senses;
 
-    // If this location contains data
-    if (synDataLocation01) {
         synDataLocation01.forEach(entry => {
 
             // If synonyms have been found
@@ -114,29 +117,32 @@ function synonymCheck(word) {
      *  -- entries[0].synonyms check
     */ 
     synDataLocation02 = JSON.parse(results);
-    synDataLocation02 = synDataLocation02.entries[0].synonyms;
+    if(synDataLocation02.entries[0]) {
+        synDataLocation02 = synDataLocation02.entries[0].synonyms;
 
-    // If this location contains data
-    if (synDataLocation02) {
-        synDataLocation02.forEach(entry => {
+        // If this location contains data
+        if (synDataLocation02) {
+            synDataLocation02.forEach(entry => {
 
-            // If synonyms have been found
-            if(entry) {
-                // For each synonym found
-                entry.forEach(syn => {
-                    // Add to synonymLib array
-                    synonymLib.push(syn);
-                });
-            }
-        });
+                // If synonyms have been found
+                if(entry) {
+                    // For each synonym found
+                    entry.forEach(syn => {
+                        // Add to synonymLib array
+                        synonymLib.push(syn);
+                    });
+                }
+            });
+        }
     }
+    
     /** 
      * synDataLocation01 - END
      * ────୨୧────────୨୧────
     */ 
 
     console.log(`[synonymCheck] synonymLib = ${synonymLib}`);
-    return results;
+    return synonymLib;
 }
 
 /**

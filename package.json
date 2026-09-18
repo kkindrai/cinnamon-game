@@ -1,0 +1,15 @@
+{
+  "name": "cinnamon",
+  "version": "1.0.0",
+  "description": "Cinnamon is a language learning game, focused on reinforcing the connections between words.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pupeteer": "^0.0.1"
+  }
+}

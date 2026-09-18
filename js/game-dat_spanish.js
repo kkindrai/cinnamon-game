@@ -76,24 +76,66 @@ function synonymCheck(word) {
 
     console.log(`[synonymCheck] url = ${url}`);
 
-    console.log(`[synonymCheck] results = ${results}`);
+    //console.log(`[synonymCheck] results = ${results}`);
 
     // So... there's a lot of weird places it saves synonyms for some reason, and I hate it.
-    
-    // Synonym Data Locations
-    synDataLocation01 = JSON.parse(results);
 
-    // THIS ONE WORKS
+
+    /** 
+     * ────୨୧────────୨୧────
+     * synDataLocation01 - START
+     *  -- entries[0].senses check
+    */ 
+    synDataLocation01 = JSON.parse(results);
     synDataLocation01 = synDataLocation01.entries[0].senses;
 
-    console.log(`[synonymCheck] devAbove = ${synDataLocation01}`);
-
+    // If this location contains data
     if (synDataLocation01) {
         synDataLocation01.forEach(entry => {
-            console.log(`[synonymCheck] entry.synonyms = ${entry.synonyms}`);
+
+            // If synonyms have been found
+            if(entry.synonyms) {
+                // For each synonym found
+                entry.synonyms.forEach(syn => {
+                    // Add to synonymLib array
+                    synonymLib.push(syn);
+                });
+            }
         });
     }
+    /** 
+     * synDataLocation01 - END
+     * ────୨୧────────୨୧────
+    */ 
 
+    /** 
+     * ────୨୧────────୨୧────
+     * synDataLocation02 - START
+     *  -- entries[0].synonyms check
+    */ 
+    synDataLocation02 = JSON.parse(results);
+    synDataLocation02 = synDataLocation02.entries[0].synonyms;
+
+    // If this location contains data
+    if (synDataLocation02) {
+        synDataLocation02.forEach(entry => {
+
+            // If synonyms have been found
+            if(entry) {
+                // For each synonym found
+                entry.forEach(syn => {
+                    // Add to synonymLib array
+                    synonymLib.push(syn);
+                });
+            }
+        });
+    }
+    /** 
+     * synDataLocation01 - END
+     * ────୨୧────────୨୧────
+    */ 
+
+    console.log(`[synonymCheck] synonymLib = ${synonymLib}`);
     return results;
 }
 

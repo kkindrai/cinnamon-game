@@ -11,3 +11,12 @@ function requestData(requestURL) {
  * Request Function - END
  * ────୨୧────────୨୧────
 */
+
+ /** ────୨୧────────୨୧────
+ * scrapeWeb Function - START
+*/
+const puppeteer = 
+/**
+ * scrapeWeb Function - END
+ * ────୨୧────────୨୧────
+*/

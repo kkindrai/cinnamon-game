@@ -15,7 +15,7 @@ function requestData(requestURL) {
  /** ────୨୧────────୨୧────
  * scrapeWeb Function - START
 */
-const puppeteer = 
+const puppeteer = require('puppeteer');
 /**
  * scrapeWeb Function - END
  * ────୨୧────────୨୧────

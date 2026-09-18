@@ -15,7 +15,21 @@ function requestData(requestURL) {
  /** ────୨୧────────୨୧────
  * scrapeWeb Function - START
 */
-const puppeteer = require('puppeteer');
+// import puppeteer from 'puppeteer';
+
+// async function scrapeWeb(url) {
+//     const browser = await puppeteer.launch();
+//     const page = await browser.newPage();
+//     await page.goto(url);
+
+//     // scrape for desired xpath
+//     const [element] = await page.$x('//*[@id="main-container-video"]/div[6]/div[1]');
+//     //const src = await element.getProperty('src');
+//     //const imageSrc = await src.jsonValue();
+
+//     console.log(element);
+
+// }
 /**
  * scrapeWeb Function - END
  * ────୨୧────────୨୧────

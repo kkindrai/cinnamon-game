@@ -72,6 +72,9 @@ function synonymCheck(word) {
     // Declare local variables
     let url = `https://www.spanishdict.com/thesaurus/${word}`;
 
+    //scrapeWeb(url);
+    console.log(requestData(url));
+
     
 
     console.log(`[synonymCheck] synonymLib = ${synonymLib}`);

@@ -81,7 +81,12 @@ function synonymCheck(word) {
     // So... there's a lot of weird places it saves synonyms for some reason, and I hate it.
     
     // Synonym Data Locations
-    synDataLocation01 = results.entries;
+    synDataLocation01 = JSON.parse(results);
+
+    // THIS ONE WORKS
+    synDataLocation01 = synDataLocation01.entries[0].senses;
+
+    console.log(`[synonymCheck] devAbove = ${synDataLocation01}`);
 
     if (synDataLocation01) {
         synDataLocation01.forEach(entry => {

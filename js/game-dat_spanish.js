@@ -18,17 +18,23 @@ function controller() {
     let hasSynonyms = false;
     let counter = 0;
 
+    // Generate Game Data
     while (!hasSynonyms) {
         word = generateWord();
         results = synonymCheck(word);
         counter++;
 
         // end loop
-        if(results || counter > 5) {
+        if(results || counter > 3) {
             hasSynonyms = true;
+            results = ["kendra", "es", "la", "mejor"];
         }
     }
-     
+    console.log(`[controller] results = ${results}`);
+
+
+    // Fill Game Elements
+    
 }
 
 /**

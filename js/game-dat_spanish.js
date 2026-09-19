@@ -21,15 +21,12 @@ function controller() {
         word = generateWord();
         results = synonymCheck(word);
 
-        console.log(`[controller] results = ${results}`);
-
-        // end loop
-        if(results.length !== 0) {
+        // end loop if found
+        if(results) {
             hasSynonyms = true;
         }
     }
-    
-    
+     
 }
 
 /**
@@ -83,23 +80,25 @@ function synonymCheck(word) {
     rawMatch = pageData.match(synonymRegex);
 
     // Spanish/Unicode Character Conversion
-    rawMatch.forEach(line => {
-        let convertedLine = convertEspUni(line);
+    if(rawMatch){
+        rawMatch.forEach(line => {
+            let convertedLine = convertEspUni(line);
 
-        // remove additional text
-        let extractedSynonyms = convertedLine.match(specRegex);
+            // remove additional text
+            let extractedSynonyms = convertedLine.match(specRegex);
 
-        // remove | & add to array
-        extractedSynonyms.forEach(fragment => {
-            let word = fragment.match(/\w*/g);
-            
-            // Add word to synonymLib array
-            synonymLib.push(word[1]);
+            // remove | & add to array
+            extractedSynonyms.forEach(fragment => {
+                let word = fragment.match(/\w*/g);
+                
+                // Add word to synonymLib array
+                synonymLib.push(word[1]);
+            });
         });
-    });
 
-    console.log(`[synonymCheck] synonymLib = ${synonymLib}`);
-    return synonymLib;
+        console.log(`[synonymCheck] synonymLib = ${synonymLib}`);
+        return synonymLib;
+    } 
 }
 
 /**

@@ -16,13 +16,15 @@
 function controller() {
     let word;
     let hasSynonyms = false;
+    let counter = 0;
 
     while (!hasSynonyms) {
         word = generateWord();
         results = synonymCheck(word);
+        counter++;
 
-        // end loop if found
-        if(results) {
+        // end loop
+        if(results || counter > 5) {
             hasSynonyms = true;
         }
     }

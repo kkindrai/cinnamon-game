@@ -17,22 +17,18 @@ function controller() {
     let word;
     let hasSynonyms = false;
 
-    // while (!hasSynonyms) {
-    //     word = generateWord();
-    //     results = synonymCheck(word);
+    while (!hasSynonyms) {
+        word = generateWord();
+        results = synonymCheck(word);
 
-    //     console.log(`[controller] results = ${results}`);
+        console.log(`[controller] results = ${results}`);
 
-    //     // end loop
-    //     if(results.length !== 0) {
-    //         hasSynonyms = true;
-    //     }
-    // }
+        // end loop
+        if(results.length !== 0) {
+            hasSynonyms = true;
+        }
+    }
     
-
-    //dev
-    word = generateWord();
-    results = synonymCheck(word);
     
 }
 
@@ -72,8 +68,6 @@ function generateWord() {
 */
 
 function synonymCheck(word) {
-    //DEV
-    word = "fuego";
     
     // Declare local variables
     let corsBypassURL = "https://cors-anywhere.herokuapp.com/";
@@ -83,17 +77,26 @@ function synonymCheck(word) {
     let rawMatch;
     let synonymLib = [];
     let synonymRegex = /{{sin\\u00f3nimo(s)?\|(\w*(\|)?(\=)?(\,)?(\s)?(\\\s*)?)+}}/g;
+    let specRegex = /\|(\w*)/g;
 
+    // Pull out the raw synonym matches
     rawMatch = pageData.match(synonymRegex);
 
-    //scrapeWeb(url);
-    console.log(rawMatch);
+    // Spanish/Unicode Character Conversion
+    rawMatch.forEach(line => {
+        let convertedLine = convertEspUni(line);
 
-    rawMatch.forEach(item => {
-        console.log(convertEspUni(item));
+        // remove additional text
+        let extractedSynonyms = convertedLine.match(specRegex);
+
+        // remove | & add to array
+        extractedSynonyms.forEach(fragment => {
+            let word = fragment.match(/\w*/g);
+            
+            // Add word to synonymLib array
+            synonymLib.push(word[1]);
+        });
     });
-
-    
 
     console.log(`[synonymCheck] synonymLib = ${synonymLib}`);
     return synonymLib;

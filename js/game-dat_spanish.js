@@ -1,9 +1,12 @@
 /** 
  * @author kkindrai
  * @implements 
- *  https://freedictionaryapi.com/
  *  https://random-word-api.herokuapp.com/home
+ *  https://www.mediawiki.org/wiki/API:Tutorial#How_to_use_it
+ *  https://github.com/Rob--W/cors-anywhere
+ * 
 */
+
 
 /**
  * ────୨୧────────୨୧────────୨୧────
@@ -69,11 +72,26 @@ function generateWord() {
 */
 
 function synonymCheck(word) {
+    //DEV
+    word = "fuego";
+    
     // Declare local variables
-    let url = `https://www.spanishdict.com/thesaurus/${word}`;
+    let corsBypassURL = "https://cors-anywhere.herokuapp.com/";
+    let searchURL = `https://es.wiktionary.org/w/api.php?action=parse&page=${word}&prop=wikitext&format=json`;
+    let fullURL = corsBypassURL + searchURL;
+    let pageData = requestData(fullURL);
+    let rawMatch;
+    let synonymLib = [];
+    let synonymRegex = /{{sin\\u00f3nimo(s)?\|(\w*(\|)?(\=)?(\,)?(\s)?(\\\s*)?)+}}/g;
+
+    rawMatch = pageData.match(synonymRegex);
 
     //scrapeWeb(url);
-    console.log(requestData(url));
+    console.log(rawMatch);
+
+    rawMatch.forEach(item => {
+        console.log(convertEspUni(item));
+    });
 
     
 
